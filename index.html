@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>High Speed!</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @font-face {
+      font-family: 'Formula1Wide';
+      src: url('Font/Formula1-Wide.otf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Formula1Regular';
+      src: url('Font/Formula1-Regular.otf') format('opentype');
+    }
+
+    body {
+      font-family: 'Formula1Regular', Arial, sans-serif;
+      margin: 0;
+      background-color: #1d1d1b;
+      color: #f3f3f4;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: 'Formula1Wide', sans-serif;
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .button-wrapper-outer {
+      display: flex;
+      justify-content: center;
+    }
+
+    .button-wrapper {
+      display: flex;
+      gap: 20px;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #f3f3f4;
+      color: #1d1d1b;
+      border-radius: 5px;
+      text-decoration: none;
+      font-family: 'Formula1Regular', sans-serif;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    a.button:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #2c2c2c;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content h2 {
+      font-family: 'Formula1Wide';
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #f3f3f4;
+    }
+
+    .modal-content input {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      font-family: 'Formula1Regular';
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .modal-buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      font-family: 'Formula1Regular';
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #f3f3f4;
+      color: #1d1d1b;
+      transition: background-color 0.3s ease;
+    }
+
+    .modal-buttons button:hover {
+      background-color: #e0e0e0;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    .center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hilfe-Button -->
+<div id="helpButton" onclick="openHelp()">?</div>
+
+<!-- Hilfe-Fenster -->
+<div id="helpOverlay">
+  <div id="helpContent">
+    <span class="close-button" onclick="closeHelp()">×</span>
+    <h2>How to play:</h2>
+    <p>Watch the videos and guess how long the video took.</p>
+    <p>After choosing an answer, the correct one will be indicated by a different colour.</p>
+    <p>Click "Next" to go to the next video.</p>
+  </div>
+</div>
+
+  <h1>High Speed!</h1>
+  <p><span class="highlight-text">Can you guess the time?</span></p>
+
+  <main class="center-container">
+  <div class="button-wrapper">
+    <a href="#" class="button" onclick="startQuiz('Formula1.html')">Formula 1</a>
+    <a href="#" class="button" onclick="startQuiz('SpeedClimbing.html')">Speed Climbing</a>
+    <a href="#" class="button" onclick="startQuiz('Biathlon.html')">Biathlon</a>
+  </div>
+</main>
+
+  <!-- MODAL -->
+  <div id="nameModal" class="modal">
+    <div class="modal-content">
+      <h2>What's your name?</h2>
+      <input type="text" id="playerNameInput" placeholder="Your name..." />
+      <div class="modal-buttons">
+        <button onclick="confirmName()">Start</button>
+        <button onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openHelp() {
+      const overlay = document.getElementById("helpOverlay");
+      overlay.classList.add("active"); // aktiviert das Hilfe-Overlay
+    }
+
+    function closeHelp() {
+      const overlay = document.getElementById("helpOverlay");
+      overlay.classList.remove("active"); // blendet es wieder aus
+    }
+
+
+    let selectedTargetPage = "";
+
+    function startQuiz(targetPage) {
+      selectedTargetPage = targetPage;
+      const modal = document.getElementById("nameModal");
+      modal.style.display = "flex";
+      setTimeout(() => {
+        document.getElementById("playerNameInput").focus();
+      }, 100);
+    }
+
+    function confirmName() {
+      const nameInput = document.getElementById("playerNameInput");
+      const name = nameInput.value.trim();
+
+      if (name !== "") {
+        localStorage.setItem("playerName", name);
+        closeModal();
+        window.location.href = selectedTargetPage;
+      } else {
+        alert("Please type in your name.");
+      }
+    }
+
+    function closeModal() {
+      document.getElementById("nameModal").style.display = "none";
+      document.getElementById("playerNameInput").value = "";
+    }
+
+    // ENTER-Taste aktivieren
+    document.getElementById("playerNameInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        confirmName();
+      }
+    });
+
+    // ESC schließt das Hilfe-Overlay
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeHelp();
+      }
+    });
+  </script>
+</body>
+</html>

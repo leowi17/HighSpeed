@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Results</title>
+  <link rel="stylesheet" href="ScStyle.css" />
+  <style>
+    body {
+      font-family: 'Formula1Regular', Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #1d1d1b;
+      color: #f3f3f4;
+    }
+    h1 {
+      font-family: 'Formula1Wide', sans-serif;
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 24px;
+    }
+    a button {
+      margin-top: 30px;
+    }
+    table {
+      margin: 40px auto;
+      border-collapse: collapse;
+      width: 60%;
+      color: #f3f3f4;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #555;
+    }
+    th {
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your score</h1>
+  <p id="nameDisplay"></p>
+  <p id="scoreDisplay"></p>
+
+  <h2>Highscores</h2>
+  <table id="highscoreTable">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Wird dynamisch gefüllt -->
+    </tbody>
+  </table>
+
+  <a href="index.html">
+    <button class="button">Back to mainpage</button>
+  </a>
+
+  <script>
+    function saveScore(name, score) {
+      const scores = JSON.parse(localStorage.getItem("highscores_SC") || "[]");
+      scores.push({ name, score });
+      localStorage.setItem("highscores_SC", JSON.stringify(scores));
+    }
+
+    function renderHighscoreTable() {
+      const tableBody = document.querySelector("#highscoreTable tbody");
+      const scores = JSON.parse(localStorage.getItem("highscores_SC") || "[]");
+
+      // Sortieren: höchste Punktzahl zuerst
+      scores.sort((a, b) => b.score - a.score);
+
+      // Tabelle leeren und neu füllen
+      tableBody.innerHTML = "";
+      scores.forEach(entry => {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${entry.name}</td><td>${entry.score}</td>`;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Name & Punktzahl holen
+    const name = localStorage.getItem("playerName");
+    const score = localStorage.getItem("quizScore");
+
+    if (name && score !== null) {
+      document.getElementById("nameDisplay").textContent = `Player: ${name}`;
+      document.getElementById("scoreDisplay").textContent = `Score: ${score}`;
+
+      saveScore(name, parseInt(score));
+      renderHighscoreTable();
+
+      // damit beim Neuladen nicht doppelt gespeichert wird
+      localStorage.removeItem("quizScore");
+    } else {
+      document.getElementById("scoreDisplay").textContent = "No score found.";
+      renderHighscoreTable();
+    }
+  </script>
+</body>
+</html>

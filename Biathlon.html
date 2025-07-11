@@ -1,0 +1,189 @@
+<!-- Biathlon -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>High Speed!</title>
+  <link rel="stylesheet" href="BiaStyle.css" />
+  <style>
+    @font-face {
+      font-family: 'Formula1Wide';
+      src: url('Font/Formula1-Wide.otf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Formula1Regular';
+      src: url('Font/Formula1-Regular.otf') format('opentype');
+    }
+
+    body {
+      font-family: 'Formula1Regular', Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #1d1d1b;
+      color: #f3f3f4;
+      margin: 0;
+    }
+
+    h1 {
+      font-family: 'Formula1Wide', sans-serif;
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* Hilfe-Button */
+    #helputton {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #f3f3f4;
+      color: #1d1d1b;
+      font-size: 24px;
+      font-family: 'Formula1Regular' , sans-serif;
+      width: 36px;
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 1100;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+
+    #helpButton:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* Hilfe-Overlay */
+    #helpOverlay {
+      display: none;
+      position: fixed;
+      z-index: 1050;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+
+    #helpOverlay.hidden {
+      display: none;
+    }
+
+    #helpContent {
+      background-color: #2c2c2c;
+      padding: 30px;
+      border-radius: 10px;
+      color: #f3f3f4;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      font-family: 'Formula1Regular' , sans-serif;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    #helpContent h3 {
+      font-family: 'Formula1Wide';
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    #helpContent p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    #helpContent button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-family: 'Formula1Regular';
+      border: none;
+      border-radius: 5px;
+      background-color: #f3f3f4;
+      color: #1d1d1b;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    video {
+      border: 3px solid #f3f3f4;
+      border-radius: 10px;
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="progressBarContainer">
+    <div id="progressBar"></div>
+  </div>
+
+  <!-- Hilfe-Button oben rechts -->
+   <div id="helpButton" onclick="openHelp()">?</div>
+
+  <!-- Hilfe-Fenster -->
+   <div id="helpOverlay" class="hidden">
+    <div id="helpContent">
+      <span class="close-button" onclick="closeHelp()">×</span>
+      <h3> How to play:</h3>
+      <p>Watch the videos and guess how long th pitstop took.</p>
+      <p>After choosing an answer, the correct time will show up <span class="green">green</span> and wrong ones <span class="blue">blue</span>.</p></p>
+      <p>Click "Next" to go to the next video.</p>
+    </div>
+  </div>
+
+  <h1>High Speed!</h1>
+
+  <div class="button-container">
+    <video id="biavideo" preload="metadata" muted>
+      <source src="pit-1.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Antwortbuttons, erst nach Videoende sichtbar -->
+    <div id="answerSection" class="button-row" style="display:none;">
+      <button onclick="markButton(this)"></button>
+      <button onclick="markButton(this)"></button>
+      <button onclick="markButton(this)"></button>
+    </div>
+
+    <!-- Weiter-Button, ebenfalls erst sichtbar nach Videoende -->
+    <button id="nextButton" style="display:none;" onclick="showNextVideo()">Next</button>
+
+    <!-- Zurück-Button zur Startseite -->
+    <a href="index.html">
+      <button>Back to mainpage</button>
+    </a>
+  </div>
+
+  <script src="BiaScript.js"></script>
+
+  <script>
+    function openHelp() {
+      const overlay = document.getElementById("helpOverlay");
+      overlay.classList.remove("hidden");
+    }
+
+    function closeHelp() {
+      const overlay = document.getElementById("helpOverlay");
+      overlay.classList.add("hidden");
+    }
+
+    // ESC schließt das Hilfe-Overlay
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeHelp();
+      }
+    });
+  </script>
+</body>
+</html>
