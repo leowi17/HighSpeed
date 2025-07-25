@@ -101,6 +101,56 @@
         document.body.insertBefore(champMsg, document.querySelector("h2"));
       }
 
+      if (parseInt(score) === 4) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "Almost there, keep trying!";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
+      if (parseInt(score) === 3) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "More than half! Well done!";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
+      if (parseInt(score) === 2) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "Not that easy, eh?";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
+      if (parseInt(score) === 1) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "Even Ferrari could do better...";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
+      if (parseInt(score) === 0) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "Ohh... try again?";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
       saveScore(name, parseInt(score));
       renderHighscoreTable();
 
