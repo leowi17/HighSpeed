@@ -91,6 +91,66 @@
       document.getElementById("nameDisplay").textContent = `Player: ${name}`;
       document.getElementById("scoreDisplay").textContent = `Score: ${score}`;
 
+      if (parseInt(score) === 5) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "You have won the gold medal!";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
+      if (parseInt(score) === 4) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "So close, try again!";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
+      if (parseInt(score) === 3) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "You can do better, no?";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
+      if (parseInt(score) === 2) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "Did you slip..?";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
+      if (parseInt(score) === 1) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "Ouch, that's a tough watch...";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
+      if (parseInt(score) === 0) {
+        const champMsg = document.createElement("p");
+        champMsg.textContent = "Not even one?";
+        champMsg.style.fontSize = "28px";
+        champMsg.style.color = "#f3f3f4";
+        champMsg.style.marginTop = "20px";
+        champMsg.style.fontWeight = "bold";
+        document.body.insertBefore(champMsg, document.querySelector("h2"));
+      }
+
       saveScore(name, parseInt(score));
       renderHighscoreTable();
 
